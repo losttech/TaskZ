@@ -1,6 +1,7 @@
 ﻿namespace LostTech.Tasks
 {
     using System;
+    using System.Runtime.CompilerServices;
     using System.Threading.Tasks;
 
     public static class TaskZ
@@ -27,5 +28,12 @@
             await Task.WhenAll(task1, task2, task3, task4, task5).ConfigureAwait(false);
             return (task1.Result, task2.Result, task3.Result, task4.Result, task5.Result);
         }
+
+        /// <summary>
+        /// Shorthand for .ConfigureAwait(false);
+        /// </summary>
+        /// <typeparam name="T">Task result type</typeparam>
+        /// <param name="task">Task to configure</param>
+        public static ConfiguredTaskAwaitable<T> NoSync<T>(this Task<T> task) => task.ConfigureAwait(false);
     }
 }
